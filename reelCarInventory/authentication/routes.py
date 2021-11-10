@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect,url_for,flash
 from sqlalchemy.orm import session
-from drone_inventory.models import User,db
+from drone_inventory.models import db, User
 from drone_inventory.forms import UserLoginForm
 
 auth = Blueprint('auth', __name__, template_folder = 'auth_templates')
