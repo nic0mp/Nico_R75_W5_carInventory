@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template
+from flask_login.utils import login_required
 
 """
 Note that in the above code, 
