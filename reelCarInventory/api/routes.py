@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 
-from drone_inventory.helpers import token_required
-from drone_inventory.models import db,User,Drone,drone_schema,drones_schema
+from reelCarInventory.helpers import token_required
+from reelCarInventory.models import db,User,Drone,drone_schema,drones_schema
 
 api = Blueprint('api',__name__,url_prefix='/api')
 

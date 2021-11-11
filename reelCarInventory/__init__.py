@@ -7,7 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from .models import db as root_db,login_manager, ma
 from flask_cors import CORS
-from drone_inventory.helpers import JSONEncoder
+from reelCarInventory.helpers import JSONEncoder
 from flask_marshmallow import Marshmallow
 
 app = Flask(__name__)

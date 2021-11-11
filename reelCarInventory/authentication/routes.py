@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, request, redirect,url_for,flash
 from werkzeug.security import check_password_hash
 from sqlalchemy.orm import session
-from drone_inventory.models import User,db
-from drone_inventory.forms import UserLoginForm
+from reelCarInventory.models import User,db
+from reelCarInventory.forms import UserLoginForm
 # Imports for flask login
 from flask_login import login_user, logout_user, current_user, login_required
 
