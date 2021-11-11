@@ -7,11 +7,18 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 # Import for Secrets Module (Given by Python)
 import secrets
+from flask_login import LoginManager, UserMixin
+from flask_marshmallow import Marshmallow
 
 db = SQLAlchemy()
+login_manager = LoginManager()
+ma = Marshmallow()
 
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     id = db.Column(db.String, primary_key = True)
     first_name = db.Column(db.String(150), nullable = True, default='')
     last_name = db.Column(db.String(150), nullable = True, default = '')
@@ -20,7 +27,7 @@ class User(db.Model):
     g_auth_verify = db.Column(db.Boolean, default = False)
     token = db.Column(db.String, default = '', unique = True )
     date_created = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
-    # drone = db.relationship('Drone', backref = 'owner', lazy = True)
+    drone = db.relationship('Drone', backref = 'owner', lazy = True)
 
     def __init__(self,email,first_name = '', last_name = '', id = '', password = '', token = '', g_auth_verify = False):
         self.id = self.set_id()

@@ -30,7 +30,6 @@ def create_drone(current_user_token):
     print(f'BIG TESTER: {current_user_token.token}')
 
     drone = Drone(name,description,price, cam_quality,flight_time,max_speed,dimensions, weight,cost_of_prod,series,user_token = user_token )
-
     db.session.add(drone)
     db.session.commit()
 
@@ -59,7 +58,6 @@ def get_drone(current_user_token, id):
         return jsonify(response)
     else:
         return jsonify({"message": "Valid Token Required"}),401
-
 
 
 # UPDATE DRONE ENDPOINT
@@ -92,5 +90,6 @@ def delete_drone(current_user_token, id):
     drone = Drone.query.get(id)
     db.session.delete(drone)
     db.session.commit()
+    
     response = drone_schema.dump(drone)
     return jsonify(response)
