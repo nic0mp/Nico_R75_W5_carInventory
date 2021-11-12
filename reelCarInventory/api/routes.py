@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 
 from reelCarInventory.helpers import token_required
-from reelCarInventory.models import db,User,Drone,drone_schema,drones_schema
+from reelCarInventory.models import db,User,Car,car_schema,cars_schema
 
 api = Blueprint('api',__name__,url_prefix='/api')
 
@@ -12,9 +12,9 @@ def getdata(current_user_token):
             'other': 'Data' }
 
 # CREATE DRONE ENDPOINT
-@api.route('/drones', methods = ['POST'])
+@api.route('/cars', methods = ['POST'])
 @token_required
-def create_drone(current_user_token):
+def create_car(current_user_token):
     name = request.json['name']
     description = request.json['description']
     price = request.json['price']
@@ -29,67 +29,67 @@ def create_drone(current_user_token):
 
     print(f'BIG TESTER: {current_user_token.token}')
 
-    drone = Drone(name,description,price, cam_quality,flight_time,max_speed,dimensions, weight,cost_of_prod,series,user_token = user_token )
-    db.session.add(drone)
+    car = Car(name,description,price, cam_quality,flight_time,max_speed,dimensions, weight,cost_of_prod,series,user_token = user_token )
+    db.session.add(car)
     db.session.commit()
 
-    response = drone_schema.dump(drone)
+    response = car_schema.dump(car)
     return jsonify(response)
 
 
 # RETRIEVE ALL DRONEs ENDPOINT
-@api.route('/drones', methods = ['GET'])
+@api.route('/cars', methods = ['GET'])
 @token_required
-def get_drones(current_user_token):
+def get_cars(current_user_token):
     owner = current_user_token.token
-    drones = Drone.query.filter_by(user_token = owner).all()
-    response = drones_schema.dump(drones)
+    cars = Car.query.filter_by(user_token = owner).all()
+    response = cars_schema.dump(cars)
     return jsonify(response)  
     
 
 # RETRIEVE ONE Drone ENDPOINT
-@api.route('/drones/<id>', methods = ['GET'])
+@api.route('/cars/<id>', methods = ['GET'])
 @token_required
-def get_drone(current_user_token, id):
+def get_car(current_user_token, id):
     owner = current_user_token.token
     if owner == current_user_token.token:
-        drone = Drone.query.get(id)
-        response = drone_schema.dump(drone)
+        car = Car.query.get(id)
+        response = car_schema.dump(car)
         return jsonify(response)
     else:
         return jsonify({"message": "Valid Token Required"}),401
 
 
 # UPDATE DRONE ENDPOINT
-@api.route('/drones/<id>', methods = ['POST','PUT'])
+@api.route('/cars/<id>', methods = ['POST','PUT'])
 @token_required
-def update_drone(current_user_token,id):
-    drone = Drone.query.get(id) # GET DRONE INSTANCE
+def update_car(current_user_token,id):
+    car = Car.query.get(id) # GET DRONE INSTANCE
 
-    drone.name = request.json['name']
-    drone.description = request.json['description']
-    drone.price = request.json['price']
-    drone.cam_quality = request.json['cam_quality']
-    drone.flight_time = request.json['flight_time']
-    drone.max_speed = request.json['max_speed']
-    drone.dimensions = request.json['dimensions']
-    drone.weight = request.json['weight']
-    drone.cost_of_prod = request.json['cost_of_prod']
-    drone.series = request.json['series']
-    drone.user_token = current_user_token.token
+    car.name = request.json['name']
+    car.description = request.json['description']
+    car.price = request.json['price']
+    car.cam_quality = request.json['cam_quality']
+    car.flight_time = request.json['flight_time']
+    car.max_speed = request.json['max_speed']
+    car.dimensions = request.json['dimensions']
+    car.weight = request.json['weight']
+    car.cost_of_prod = request.json['cost_of_prod']
+    car.series = request.json['series']
+    car.user_token = current_user_token.token
 
     db.session.commit()
-    response = drone_schema.dump(drone)
+    response = car_schema.dump(car)
     return jsonify(response)
 
 
 # DELETE DRONE ENDPOINT
-@api.route('/drones/<id>', methods = ['DELETE'])
+@api.route('/cars/<id>', methods = ['DELETE'])
 @token_required
-def delete_drone(current_user_token, id):
-    drone = Drone.query.get(id)
-    db.session.delete(drone)
+def delete_car(current_user_token, id):
+    car = Car.query.get(id)
+    db.session.delete(car)
     db.session.commit()
     
-    response = drone_schema.dump(drone)
+    response = car_schema.dump(car)
     return jsonify(response)

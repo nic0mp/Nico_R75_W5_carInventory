@@ -27,7 +27,7 @@ class User(db.Model, UserMixin):
     g_auth_verify = db.Column(db.Boolean, default = False)
     token = db.Column(db.String, default = '', unique = True )
     date_created = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
-    drone = db.relationship('Drone', backref = 'owner', lazy = True)
+    car = db.relationship('Car', backref = 'owner', lazy = True)
 
     def __init__(self,email,first_name = '', last_name = '', id = '', password = '', token = '', g_auth_verify = False):
         self.id = self.set_id()
@@ -51,7 +51,7 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f'User {self.email} has been added to the database'
 
-class Drone(db.Model):
+class Car(db.Model):
     id = db.Column(db.String, primary_key = True)
     name = db.Column(db.String(150))
     description = db.Column(db.String(200), nullable = True)
@@ -64,7 +64,7 @@ class Drone(db.Model):
     cost_of_prod = db.Column(db.Numeric(precision=10, scale=2))
     series = db.Column(db.String(150))
     user_token = db.Column(db.String, db.ForeignKey('user.token'), nullable = False)
-    # drone = db.relationship('Drone', backref = 'owner', lazy = True)
+    # drone = db.relationship('Car', backref = 'owner', lazy = True)
 
     def __init__(self,name,description,price, camera_quality,flight_time,max_speed,dimensions, weight,cost_of_prod,series,user_token, id = ''):
         self.id = self.set_id()
@@ -84,14 +84,14 @@ class Drone(db.Model):
         return secrets.token_urlsafe()
 
     def __repr__(self):
-        return f'The following Drone has been added: {self.name}'
+        return f'The following Car has been added: {self.name}'
 
 
 # Creation of API Schema via the Marshmallow Object
-class DroneSchema(ma.Schema):
+class CarSchema(ma.Schema):
     class Meta:
         fields = ['id', 'name','description', 'price', 'camera_quality', 'flight_time', 'max_speed', 'dimensions', 'weight', 'cost_of_prod', 'series']
 
 
-drone_schema = DroneSchema()
-drones_schema = DroneSchema(many = True)
+car_schema = CarSchema()
+cars_schema = CarSchema(many = True)
