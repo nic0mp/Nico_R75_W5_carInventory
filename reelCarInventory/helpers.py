@@ -2,7 +2,7 @@ from functools import wraps
 import secrets
 
 from flask import request, jsonify, json
-from reelCarInventory.models import Drone, User
+from reelCarInventory.models import Car, User
 import decimal
 
 def token_required(our_flask_function):

@@ -11,7 +11,7 @@ def getdata(current_user_token):
     return { 'some': "value" , 
             'other': 'Data' }
 
-# CREATE DRONE ENDPOINT
+# CREATE CAR ENDPOINT
 @api.route('/cars', methods = ['POST'])
 @token_required
 def create_car(current_user_token):
@@ -37,7 +37,7 @@ def create_car(current_user_token):
     return jsonify(response)
 
 
-# RETRIEVE ALL DRONEs ENDPOINT
+# RETRIEVE ALL CARs ENDPOINT
 @api.route('/cars', methods = ['GET'])
 @token_required
 def get_cars(current_user_token):
@@ -47,7 +47,7 @@ def get_cars(current_user_token):
     return jsonify(response)  
     
 
-# RETRIEVE ONE Drone ENDPOINT
+# RETRIEVE ONE CAR ENDPOINT
 @api.route('/cars/<id>', methods = ['GET'])
 @token_required
 def get_car(current_user_token, id):
@@ -60,7 +60,7 @@ def get_car(current_user_token, id):
         return jsonify({"message": "Valid Token Required"}),401
 
 
-# UPDATE DRONE ENDPOINT
+# UPDATE CAR ENDPOINT
 @api.route('/cars/<id>', methods = ['POST','PUT'])
 @token_required
 def update_car(current_user_token,id):
@@ -83,7 +83,7 @@ def update_car(current_user_token,id):
     return jsonify(response)
 
 
-# DELETE DRONE ENDPOINT
+# DELETE CAR ENDPOINT
 @api.route('/cars/<id>', methods = ['DELETE'])
 @token_required
 def delete_car(current_user_token, id):
