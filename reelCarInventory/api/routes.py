@@ -18,18 +18,20 @@ def create_car(current_user_token):
     name = request.json['name']
     description = request.json['description']
     price = request.json['price']
-    cam_quality = request.json['cam_quality']
-    flight_time = request.json['flight_time']
+    transmission = request.json['transmission']
+    drivetrain = request.json['drivetrain']
     max_speed = request.json['max_speed']
-    dimensions = request.json['dimensions']
-    weight = request.json['weight']
     cost_of_prod = request.json['cost_of_prod']
     series = request.json['series']
     user_token = current_user_token.token
+     # dimensions = request.json['dimensions']
+    # weight = request.json['weight']
+     # cam_quality = request.json['cam_quality']
+    # flight_time = request.json['flight_time']
 
     print(f'BIG TESTER: {current_user_token.token}')
 
-    car = Car(name,description,price, cam_quality,flight_time,max_speed,dimensions, weight,cost_of_prod,series,user_token = user_token )
+    car = Car(name,description,price,transmission,drivetrain,max_speed,cost_of_prod,series,user_token =current_user_token.token )
     db.session.add(car)
     db.session.commit()
 
@@ -69,11 +71,9 @@ def update_car(current_user_token,id):
     car.name = request.json['name']
     car.description = request.json['description']
     car.price = request.json['price']
-    car.cam_quality = request.json['cam_quality']
-    car.flight_time = request.json['flight_time']
+    car.transmission = request.json['transmission']
+    car.drivetrain = request.json['drivetrain']
     car.max_speed = request.json['max_speed']
-    car.dimensions = request.json['dimensions']
-    car.weight = request.json['weight']
     car.cost_of_prod = request.json['cost_of_prod']
     car.series = request.json['series']
     car.user_token = current_user_token.token

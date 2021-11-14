@@ -27,7 +27,7 @@ class User(db.Model, UserMixin):
     g_auth_verify = db.Column(db.Boolean, default = False)
     token = db.Column(db.String, default = '', unique = True )
     date_created = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
-    car = db.relationship('Car', backref = 'owner', lazy = True)
+    # car = db.relationship('Car', backref = 'owner', lazy = True)
 
     def __init__(self,email,first_name = '', last_name = '', id = '', password = '', token = '', g_auth_verify = False):
         self.id = self.set_id()
@@ -56,29 +56,33 @@ class Car(db.Model):
     name = db.Column(db.String(150))
     description = db.Column(db.String(200), nullable = True)
     price = db.Column(db.Numeric(precision=10,scale=2))
-    camera_quality = db.Column(db.String(150), nullable = True)
-    flight_time = db.Column(db.String(100), nullable = True)
-    max_speed = db.Column(db.String(100))
-    dimensions = db.Column(db.String(100))
-    weight = db.Column(db.String(50))
+    transmission = db.Column(db.String(150), nullable = True)
+    drivetrain = db.Column(db.String(150), nullable = True)
+    max_speed = db.Column(db.String(100))   
     cost_of_prod = db.Column(db.Numeric(precision=10, scale=2))
     series = db.Column(db.String(150))
     user_token = db.Column(db.String, db.ForeignKey('user.token'), nullable = False)
     # drone = db.relationship('Car', backref = 'owner', lazy = True)
+     # camera_quality = db.Column(db.String(150), nullable = True)
+    # flight_time = db.Column(db.String(100), nullable = True)   
+    # dimensions = db.Column(db.String(100))
+    # weight = db.Column(db.String(50))
 
-    def __init__(self,name,description,price, camera_quality,flight_time,max_speed,dimensions, weight,cost_of_prod,series,user_token, id = ''):
+    def __init__(self,name,description,price,transmission,drivetrain,max_speed,cost_of_prod,series,user_token, id = ''):
         self.id = self.set_id()
         self.name = name
         self.description = description
         self.price = price
-        self.camera_quality = camera_quality
-        self.flight_time = flight_time
+        self.transmission = transmission
+        self.drivetrain = drivetrain
         self.max_speed = max_speed
-        self.dimensions = dimensions
-        self.weight = weight
         self.cost_of_prod = cost_of_prod
         self.series = series
         self.user_token = user_token
+        # self.camera_quality = camera_quality
+        # self.flight_time = flight_time
+        # self.dimensions = dimensions
+        # self.weight = weight
 
     def set_id(self):
         return secrets.token_urlsafe()
@@ -90,7 +94,7 @@ class Car(db.Model):
 # Creation of API Schema via the Marshmallow Object
 class CarSchema(ma.Schema):
     class Meta:
-        fields = ['id', 'name','description', 'price', 'camera_quality', 'flight_time', 'max_speed', 'dimensions', 'weight', 'cost_of_prod', 'series']
+        fields = ['id', 'name','description', 'price', 'transmission', 'drivetrain','max_speed', 'cost_of_prod', 'series']
 
 
 car_schema = CarSchema()
