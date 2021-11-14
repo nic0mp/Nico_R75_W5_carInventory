@@ -1,4 +1,4 @@
-import os
+import os #access information across operating systems
 from dotenv import load_dotenv
 basedir = os.path.abspath(os.path.dirname(__file__))
 
