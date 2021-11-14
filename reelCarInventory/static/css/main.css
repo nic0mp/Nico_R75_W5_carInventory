@@ -1,12 +1,13 @@
 /*Nav Styles */
 .ct-nav{
+    background-color: #DA1B69;
     display: flex;
     justify-content: space-between;
 }
 
 /* Target Main Logo Image */
 .ct-nav img{
-    width: 25%;
+    width: 15%;
     max-width: 100%;
     margin-left: 2vw;
 }
@@ -21,7 +22,7 @@ ul#horizontal-list li, ul#horizontal-list a{
     display:inline;
     text-decoration:none;
     padding: 0.5vw;
-    color:black;
+    color:white;
 }
 
 ul#horizontal-list a:nth-last-child(1){
@@ -32,12 +33,17 @@ ul#horizontal-list a:nth-last-child(1){
 /* End of Nav Styles */
 
 /* Start of Hero/Header Section */
+#tophead{
+    margin-top: 40px;
+
+}
 #header-text{
     padding: 2vw;
+    padding-top: 10%;
 }
 
 .header-image{
-    width: 82%;
+    width: 100%;
     max-width: 100%;
 }
 /* End of Hero/Header Section */
@@ -64,9 +70,9 @@ ul#horizontal-list a:nth-last-child(1){
 /* End of Features Section */
 
 /* Community Section Styles */
-#Drone-image{
-    width: 50%;
-    max-width: 75%;
+#Car-image{
+    width: 100%;
+    max-width: 100%;
     margin-left: 3vw;
 }
 /* End of Community Section */
